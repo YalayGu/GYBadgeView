@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "GYBadgeView"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.1"
   spec.summary      = "GYBadgeView is an easy and useful badge view, you can use it everywhere as you expect."
 
   # This description is used to generate tags and improve search results.
