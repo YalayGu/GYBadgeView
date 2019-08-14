@@ -57,9 +57,14 @@
 
 - (void)someDefaultConfig
 {
-    _maxBadgeValue = NSUIntegerMax;
+    _maxBadgeValue = NSIntegerMax;
     _badgeDotSize = 8.;
     _badgeTextFont = [UIFont boldSystemFontOfSize:11];
+    
+    _badgeVerticalPadding = 1;
+    _lastBadgeVerticalPadding = 1;
+    _badgeHorizontalPadding = 4;
+    _lastBadgeHorizontalPadding = 4;
     
     _badgeBackgroundColor = UIColor.redColor;
     _badgeTextColor = UIColor.whiteColor;
@@ -83,7 +88,7 @@
 
 #pragma mark - setter
 
-- (void)setBadgeValue:(NSUInteger)badgeValue
+- (void)setBadgeValue:(NSInteger)badgeValue
 {
     _badgeValue = badgeValue;
     [self setNeedsUpdateBadgeLayout];
@@ -133,7 +138,7 @@
     [self setNeedsUpdateBadgeLayout];
 }
 
-- (void)setMaxBadgeValue:(NSUInteger)maxBadgeValue
+- (void)setMaxBadgeValue:(NSInteger)maxBadgeValue
 {
     _maxBadgeValue = maxBadgeValue;
     [self setNeedsUpdateBadgeLayout];
@@ -175,6 +180,16 @@
     [self setNeedsUpdateBadgeAppearance];
 }
 
+- (void)setOverMaxShowValue:(NSString *)overMaxShowValue
+{
+    if (_overMaxShowValue != overMaxShowValue) {
+        _overMaxShowValue = overMaxShowValue;
+        if (self.badgeValue > self.maxBadgeValue) {
+            [self setNeedsUpdateBadgeLayout];
+        }
+    }
+}
+
 #pragma mark - update layout
 
 - (void)setNeedsUpdateBadgeLayout
@@ -190,7 +205,7 @@
     if (self.isNeedsUpdateBadgeLayout) {
         self.isNeedsUpdateBadgeLayout = NO;
         if (self.badgeValue > self.maxBadgeValue) {
-            self.badgeValueString = [NSString stringWithFormat:@"%ld+", self.maxBadgeValue];
+            self.badgeValueString = self.overMaxShowValue ?: [NSString stringWithFormat:@"%ld+", self.maxBadgeValue];
         } else {
             self.badgeValueString = [NSString stringWithFormat:@"%ld", self.badgeValue];
         }

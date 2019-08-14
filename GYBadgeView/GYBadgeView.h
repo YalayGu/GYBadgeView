@@ -119,15 +119,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  设置的数字的最大值 默认无穷大
- set badge max value, if nor set, default is NSUIntegerMax.
+ set badge max value, if nor set, default is NSIntegerMax.
  */
-@property (nonatomic, assign) NSUInteger maxBadgeValue;
+@property (nonatomic, assign) NSInteger maxBadgeValue;
+
+/**
+ 超过最大值得时候，展示的内容
+ when the badge value is over max, you can custom the value showing.
+ */
+@property (nonatomic, copy) NSString *overMaxShowValue;
 
 /**
  设置的数字 如果要自定义UI一定要设置好参数再赋值
  set badge value, if you want to change frame, you should set badgeValue first.
  */
-@property (nonatomic, assign) NSUInteger badgeValue;
+@property (nonatomic, assign) NSInteger badgeValue;
 
 - (instancetype)initWithBadgeStyle:(GYBadgeViewStyle)badgeStyle textStyle:(GYBadgeViewTextStyle)textStyle;
 
